@@ -6,11 +6,14 @@ class ApiConfig {
     required this.headers,
   });
 
-  /// a factory that returns `ApiConfig` from a `json`
-  factory ApiConfig(Map<String, Object?> json) {
+  /// returns `ApiConfig` from a `json`
+  factory ApiConfig.fromJson(Map<String, Object?> json) {
     return ApiConfig._(
       endpoint: json['endpoint'] as String,
-      headers: json['headers'] as Map<String, String>,
+      headers: <String, String>{
+        for (final entry in (json['headers'] as Map).entries)
+          entry.key as String: entry.value as String,
+      },
     );
   }
 
