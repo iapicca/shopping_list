@@ -9,6 +9,10 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # 3rd party
+  hooks_riverpod: ^0.14.0
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -17,9 +21,8 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/api_config.json
   # fonts:
   #   - family: Schyler
   #     fonts:
