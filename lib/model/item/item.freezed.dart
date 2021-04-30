@@ -12,10 +12,6 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-Item _$ItemFromJson(Map<String, dynamic> json) {
-  return _Item.fromJson(json);
-}
-
 /// @nodoc
 class _$ItemTearOff {
   const _$ItemTearOff();
@@ -36,10 +32,6 @@ class _$ItemTearOff {
       quantity: quantity,
     );
   }
-
-  Item fromJson(Map<String, Object> json) {
-    return Item.fromJson(json);
-  }
 }
 
 /// @nodoc
@@ -54,7 +46,6 @@ mixin _$Item {
   String get note => throw _privateConstructorUsedError;
   int get quantity => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $ItemCopyWith<Item> get copyWith => throw _privateConstructorUsedError;
 }
@@ -180,7 +171,7 @@ class __$ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
 class _$_Item with DiagnosticableTreeMixin implements _Item {
   const _$_Item(
       {required this.date,
@@ -189,9 +180,6 @@ class _$_Item with DiagnosticableTreeMixin implements _Item {
       required this.id,
       this.note = '',
       this.quantity = 1});
-
-  factory _$_Item.fromJson(Map<String, dynamic> json) =>
-      _$_$_ItemFromJson(json);
 
   @override
   final DateTime date;
@@ -261,11 +249,6 @@ class _$_Item with DiagnosticableTreeMixin implements _Item {
   @override
   _$ItemCopyWith<_Item> get copyWith =>
       __$ItemCopyWithImpl<_Item>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$_$_ItemToJson(this);
-  }
 }
 
 abstract class _Item implements Item {
@@ -276,8 +259,6 @@ abstract class _Item implements Item {
       required String id,
       String note,
       int quantity}) = _$_Item;
-
-  factory _Item.fromJson(Map<String, dynamic> json) = _$_Item.fromJson;
 
   @override
   DateTime get date => throw _privateConstructorUsedError;

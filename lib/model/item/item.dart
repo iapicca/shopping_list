@@ -1,8 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:flutter/foundation.dart';
 
 part 'item.freezed.dart';
-part 'item.g.dart';
 
 /// command  to run freezed
 /// `flutter pub run build_runner watch --delete-conflicting-outputs`
@@ -22,5 +22,5 @@ class Item with _$Item {
   }) = _Item;
 
   /// a
-  factory Item.fromJson(Map<String, Object?> json) => _$ItemFromJson(json);
+  // factory Item.fromJson(Map<String, Object?> json) => _$ItemFromJson(json);
 }
