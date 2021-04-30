@@ -11,6 +11,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: subosito/flutter-action@v1.4.0
+        with:
+          channel: 'dev'
       - name: Install Dependencies
         run: flutter packages get
       - name: Format
@@ -18,7 +20,7 @@ jobs:
       - name: Analyze
         run: flutter analyze lib test
       - name: Run tests
-        run: flutter test --no-pub --coverage --test-randomize-ordering-seed random
+        run: flutter test --no-pub --coverage
       # - name: Check Code Coverage
       #   uses: VeryGoodOpenSource/very_good_coverage@v1.1.1
       #   with:

@@ -46,8 +46,17 @@ void main() {
     test('WHEN fails to fetch THEN returns a `Failure`', () async {
       rootBundleMock.stub.reset;
       rootBundleMock.stub.stub = (_) => throw Exception();
+
+      // need a new container becuase the result is memoized
+      final newContainer = ProviderContainer(
+        overrides: [
+          rootBundleLoadStringPod
+              .overrideWithProvider(Provider((ref) => rootBundleMock))
+        ],
+      );
+
       expect(
-        await container.read(apiConfigPod),
+        await newContainer.read(apiConfigPod),
         isA<Failure>(),
         reason: 'should return a `Failure`',
       );
