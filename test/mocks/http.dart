@@ -7,6 +7,7 @@ class HttpMock {
   final postStub = nullaryStub<Response>();
   final getStub = nullaryStub<Response>();
   final putStub = nullaryStub<Response>();
+  final deleteStub = nullaryStub<Response>();
 
   Future<Response> post(Uri url,
       {Map<String, String>? headers, Object? body, Encoding? encoding}) async {
@@ -20,5 +21,9 @@ class HttpMock {
   Future<Response> put(Uri url,
       {Map<String, String>? headers, Object? body, Encoding? encoding}) async {
     return putStub.stub();
+  }
+
+  Future<Response> delete(Uri url, {Map<String, String>? headers}) async {
+    return deleteStub.stub();
   }
 }
