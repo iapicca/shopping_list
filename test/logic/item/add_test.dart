@@ -7,7 +7,7 @@ import 'package:shopping_list/model/all.dart';
 import 'package:stub/stub.dart';
 
 void main() {
-  final delay = const Duration(milliseconds: 200);
+  final delay = const Duration(milliseconds: 50);
   final createItemStub = unaryStub<Future<Result<Item>>, Item>()
     ..stub = (_) async {
       await Future.delayed(delay * 2);
@@ -17,7 +17,7 @@ void main() {
   final onErrorStub = unaryStub<void, FailureReport>()..stub = (_) {};
 
   final item = Item.temp(description: 'description');
-  group('addItemPod test', () {
+  group('addItemPod test ', () {
     final container = ProviderContainer(
       overrides: [
         createItemPod
@@ -28,7 +28,10 @@ void main() {
       ],
     );
     final addItem = container.read(addItemPod);
-    test('GIVEN `createItem` fail' 'WHEN ', () async {
+    test(
+        'GIVEN `createItem` fail '
+        'WHEN  item is added '
+        'THEN is added first and then removed', () async {
       addItem(item);
       await Future.delayed(delay);
       expect(
@@ -46,6 +49,40 @@ void main() {
         onErrorStub.count,
         1,
         reason: '`onError` should be called once',
+      );
+    });
+    test(
+        'GIVEN `createItem` succeed '
+        'WHEN  item is added '
+        'THEN item is added and the updated', () async {
+      const ok = Item(description: 'description', id: 'ID');
+      createItemStub.stub = (_) async {
+        await Future.delayed(delay * 2);
+        return const Success(ok);
+      };
+      onErrorStub.reset;
+      addItem(item);
+      await Future.delayed(delay);
+      expect(
+        itemsNotifier.value.length,
+        1,
+        reason: 'item should be added to list',
+      );
+      await Future.delayed(delay * 2);
+      expect(
+        itemsNotifier.value.length,
+        1,
+        reason: 'item is not removed from list',
+      );
+      expect(
+        itemsNotifier.value.first.id,
+        ok.id,
+        reason: 'item id is updated',
+      );
+      expect(
+        onErrorStub.count,
+        0,
+        reason: '`onError` should NOT be calles',
       );
     });
   });

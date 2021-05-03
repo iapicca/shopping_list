@@ -11,9 +11,11 @@ final editItemPod = Provider<void Function(Item)>((ref) {
   final items = ref.read(itemsPod);
   final onError = ref.read(onErrorPod);
   return (item) async {
-    final current = items.value;
-    final redacted = items.value..removeWhere((i) => i.id == item.id);
-    items.value = [item, ...redacted];
+    final current = List<Item>.unmodifiable(<Item>[...items.value]);
+    final redacted = [...current]
+      ..removeWhere((i) => i.id == item.id)
+      ..add(item);
+    items.value = redacted;
     final result = await update(item);
     if (result is Failure) {
       items.value = current;
