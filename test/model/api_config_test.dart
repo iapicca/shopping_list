@@ -23,8 +23,13 @@ void main() {
         'THEN returns a valid `ApiConfig`', () {
       final apiConfig = ApiConfig.fromJson(jsonDecode(fakeAPICONFIG));
       expect(
-        apiConfig.endpoint,
-        'ENDPOINT',
+        apiConfig.authority,
+        'AUTHORITY',
+        reason: 'parsed data should be predictable',
+      );
+      expect(
+        apiConfig.path,
+        'PATH',
         reason: 'parsed data should be predictable',
       );
       expect(

@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/widgets.dart';
 
 /// a class representing a `shoppig list item`
 class Item extends Equatable {
@@ -10,6 +11,21 @@ class Item extends Equatable {
     this.quantity = 1,
     this.note = '',
   });
+
+  /// create a Item with a temporary id
+  factory Item.temp({
+    required String description,
+    int quantity = 1,
+    String note = '',
+  }) {
+    final id = UniqueKey();
+    return Item(
+      description: description,
+      id: '$id',
+      quantity: quantity,
+      note: note,
+    );
+  }
 
   /// returns an `Item` from a `"json"`
   factory Item.fromJson(Map<String, Object?> json) {

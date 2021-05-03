@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:shopping_list/model/all.dart';
 import 'package:shopping_list/extension/all.dart';
 
-import '../mocks/item.dart';
+import '../mocks/all.dart';
 
 void main() {
   group('`Item.toJson` test', () {

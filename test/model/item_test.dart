@@ -48,5 +48,15 @@ void main() {
         reason: 'parsed data should be predictable',
       );
     });
+
+    test(
+        'WHEN Item.temp'
+        'THEN an Item is created`', () {
+      expect(
+        Item.temp(description: 'description'),
+        isA<Item>(),
+        reason: 'should return an `Item`',
+      );
+    });
   });
 }
