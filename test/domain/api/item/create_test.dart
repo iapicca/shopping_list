@@ -7,7 +7,7 @@ import 'package:shopping_list/domain/all.dart';
 import 'package:shopping_list/model/all.dart';
 import 'package:stub/stub.dart';
 
-import '../../mocks/all.dart';
+import '../../../mocks/all.dart';
 
 void main() {
   final item = Item.temp(description: 'description');
@@ -85,9 +85,8 @@ void main() {
       );
 
       final create = container.read(createItemPod);
-      final newItem = await create(item);
       expect(
-        newItem,
+        await create(item),
         isA<Success>(),
         reason: 'should return a `Success`',
       );

@@ -3,4 +3,4 @@ import 'package:http/http.dart' as http;
 import '../../../model/all.dart';
 
 /// inject the `http` post making it mockable
-final httpPostPod = Provider<HttpPOST>((ref) => http.post);
+final httpGetPod = Provider<HttpGET>((ref) => http.get);

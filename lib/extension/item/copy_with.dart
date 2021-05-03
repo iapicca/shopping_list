@@ -1,4 +1,4 @@
-import 'package:shopping_list/model/all.dart';
+import '../../../model/all.dart';
 
 /// an extension on `Item`
 extension ItemCopyWithX on Item {
