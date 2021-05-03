@@ -6,6 +6,7 @@ import 'package:stub/stub.dart';
 class HttpMock {
   final postStub = nullaryStub<Response>();
   final getStub = nullaryStub<Response>();
+  final putStub = nullaryStub<Response>();
 
   Future<Response> post(Uri url,
       {Map<String, String>? headers, Object? body, Encoding? encoding}) async {
@@ -14,5 +15,10 @@ class HttpMock {
 
   Future<Response> get(Uri url, {Map<String, String>? headers}) async {
     return getStub.stub();
+  }
+
+  Future<Response> put(Uri url,
+      {Map<String, String>? headers, Object? body, Encoding? encoding}) async {
+    return putStub.stub();
   }
 }

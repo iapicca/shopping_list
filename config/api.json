@@ -1,6 +1,6 @@
 {
     "autority": "https://parseapi.back4app.com/",
-    "path": "classes/item",
+    "path": "classes/item/",
     "headers": {
       "Content-Type": "application/json",
       "X-Parse-Application-Id": "AT9GaLB3D6FsXVc8aBJI2aA933boJT7oGLT4Lltx",

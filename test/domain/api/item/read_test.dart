@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:http/http.dart' show Response;
+import 'package:http/http.dart' show Response hide get;
 import 'package:shopping_list/domain/all.dart';
 import 'package:shopping_list/model/all.dart';
 import 'package:stub/stub.dart';
@@ -10,7 +10,8 @@ import 'package:stub/stub.dart';
 import '../../../mocks/all.dart';
 
 void main() {
-  final http = HttpMock()..getStub.stub = () => Response(fakeReadITEMS, 200);
+  final httpMock = HttpMock()
+    ..getStub.stub = () => Response(fakeReadITEMS, 200);
   final configStub = nullaryStub<Future<Result<ApiConfig>>>()
     ..stub = () async => Success(ApiConfig.fromJson(jsonDecode(fakeAPICONFIG)));
 
@@ -22,7 +23,7 @@ void main() {
 
       final container = ProviderContainer(
         overrides: [
-          httpGetPod.overrideWithProvider(Provider((ref) => http.get)),
+          httpGetPod.overrideWithProvider(Provider((ref) => httpMock.get)),
           apiConfigPod
               .overrideWithProvider(Provider((ref) => configStub.stub()))
         ],
@@ -38,11 +39,11 @@ void main() {
     test('WHEN `http` throw Exception THEN returns a `Failure`', () async {
       configStub.stub =
           () async => Success(ApiConfig.fromJson(jsonDecode(fakeAPICONFIG)));
-      http.getStub.stub = () => throw Exception();
+      httpMock.getStub.stub = () => throw Exception();
 
       final container = ProviderContainer(
         overrides: [
-          httpGetPod.overrideWithProvider(Provider((ref) => http.get)),
+          httpGetPod.overrideWithProvider(Provider((ref) => httpMock.get)),
           apiConfigPod
               .overrideWithProvider(Provider((ref) => configStub.stub()))
         ],
@@ -55,11 +56,11 @@ void main() {
       );
     });
     test('WHEN `http` response != 200 THEN returns a `Failure`', () async {
-      http.getStub.stub = () => Response(fakeReadITEMS, 404);
+      httpMock.getStub.stub = () => Response(fakeReadITEMS, 404);
 
       final container = ProviderContainer(
         overrides: [
-          httpGetPod.overrideWithProvider(Provider((ref) => http.get)),
+          httpGetPod.overrideWithProvider(Provider((ref) => httpMock.get)),
           apiConfigPod
               .overrideWithProvider(Provider((ref) => configStub.stub()))
         ],
@@ -73,11 +74,11 @@ void main() {
     });
 
     test('WHEN `http` response is 200 THEN returns a `Success`', () async {
-      http.getStub.stub = () => Response(fakeReadITEMS, 200);
+      httpMock.getStub.stub = () => Response(fakeReadITEMS, 200);
 
       final container = ProviderContainer(
         overrides: [
-          httpGetPod.overrideWithProvider(Provider((ref) => http.get)),
+          httpGetPod.overrideWithProvider(Provider((ref) => httpMock.get)),
           apiConfigPod
               .overrideWithProvider(Provider((ref) => configStub.stub()))
         ],
@@ -96,11 +97,11 @@ void main() {
         'GIVEN response is 200'
         'WHEN fail to decode  '
         'THEN returns a `Failure`', () async {
-      http.getStub.stub = () => Response('', 200);
+      httpMock.getStub.stub = () => Response('', 200);
 
       final container = ProviderContainer(
         overrides: [
-          httpGetPod.overrideWithProvider(Provider((ref) => http.get)),
+          httpGetPod.overrideWithProvider(Provider((ref) => httpMock.get)),
           apiConfigPod
               .overrideWithProvider(Provider((ref) => configStub.stub()))
         ],

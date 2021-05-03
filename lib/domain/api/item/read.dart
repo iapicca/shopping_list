@@ -7,7 +7,7 @@ import '../../all.dart';
 /// returns a
 final readItemPod = Provider<Read<Item>>((ref) {
   final futureConfig = ref.read(apiConfigPod);
-  final get = ref.read(httpGetPod);
+  final httpGet = ref.read(httpGetPod);
   return () async {
     final maybeConfig = await futureConfig;
     if (maybeConfig is Failure) {
@@ -18,7 +18,7 @@ final readItemPod = Provider<Read<Item>>((ref) {
     late final Response res;
 
     try {
-      res = await get(
+      res = await httpGet(
         Uri.https(config.authority, config.path),
         headers: config.headers,
       );
