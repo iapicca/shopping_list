@@ -8,6 +8,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  http: ^0.13.2
+
 
   # 3rd party
   equatable: ^2.0.0
@@ -17,6 +19,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  coverage: ^1.0.2
+
   very_good_analysis: ^2.0.0
   stub: ^0.3.0+2
 

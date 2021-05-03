@@ -13,10 +13,6 @@ final apiConfigPod = Provider<Future<Result<ApiConfig>>>((ref) async {
     return Failure(failure.report);
   }
   final apiConfigParser = parser((json) => ApiConfig.fromJson(json));
-  try {
-    final json = res as Success<String>;
-    return apiConfigParser(json.data);
-  } on Exception catch (e, s) {
-    return Failure(FailureReport(e, s));
-  }
+  final json = res as Success<String>;
+  return apiConfigParser(json.data);
 });

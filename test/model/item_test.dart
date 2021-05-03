@@ -1,18 +1,18 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shopping_list/model/api_config.dart';
+import 'package:shopping_list/model/all.dart';
 
-import '../mocks/api_config.dart';
+import '../mocks/item.dart';
 
 void main() {
-  group('ApiConfig test', () {
+  group('Item test', () {
     test(
         'GIVEN a INVALID json is provided '
         'WHEN json is parsed '
         'THEN throws `FormatException`', () {
       expect(
-        () => ApiConfig.fromJson(jsonDecode('')),
+        () => Item.fromJson(jsonDecode('')),
         throwsA(isA<FormatException>()),
         reason: 'should throw `FormatException`',
       );
@@ -20,32 +20,42 @@ void main() {
     test(
         'GIVEN a valid json is provided '
         'WHEN json is parsed '
-        'THEN returns a valid `ApiConfig`', () {
-      final apiConfig = ApiConfig.fromJson(jsonDecode(fakeAPICONFIG));
+        'THEN returns a valid `Item`', () {
+      final item = Item.fromJson(jsonDecode(fakeITEM));
       expect(
-        apiConfig.authority,
-        'AUTHORITY',
+        item.description,
+        'DESCRIPTION',
         reason: 'parsed data should be predictable',
       );
       expect(
-        apiConfig.path,
-        'PATH',
+        item.done,
+        false,
         reason: 'parsed data should be predictable',
       );
       expect(
-        apiConfig.headers.entries.first.key,
-        'Content-Type',
+        item.id,
+        'ID',
         reason: 'parsed data should be predictable',
       );
       expect(
-        apiConfig.headers.entries.first.value,
-        'application/json',
+        item.note,
+        'NOTE',
         reason: 'parsed data should be predictable',
       );
       expect(
-        apiConfig.headers.entries.length,
-        1,
+        item.quantity,
+        0,
         reason: 'parsed data should be predictable',
+      );
+    });
+
+    test(
+        'WHEN Item.temp'
+        'THEN an Item is created`', () {
+      expect(
+        Item.temp(description: 'description'),
+        isA<Item>(),
+        reason: 'should return an `Item`',
       );
     });
   });

@@ -1,6 +1,5 @@
-import 'package:equatable/equatable.dart';
-
 /// an abstract class that determins if an output is a `Success` or a `Failure`
+/// doesn't use `Freezed` because poor `Type` support
 abstract class Result<T> {
   /// a `const factory` for `Success`
   const factory Result.success(T data) = Success;
@@ -10,15 +9,12 @@ abstract class Result<T> {
 }
 
 /// an intended `Result`
-class Success<T> extends Equatable implements Result<T> {
+class Success<T> implements Result<T> {
   /// allows a `const` constructor
   const Success(this.data);
 
   /// hold data of a given `type`
   final T data;
-
-  @override
-  List<Object?> get props => [data];
 }
 
 /// an unintended `Result`
