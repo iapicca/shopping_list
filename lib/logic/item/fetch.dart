@@ -14,6 +14,7 @@ final fetchItemsPod = Provider<void Function()>((ref) {
     final result = await readItems();
     if (result is Failure) {
       onError((result as Failure).report);
+      items.value = [];
     } else {
       items.value = (result as Success<List<Item>>).data;
     }

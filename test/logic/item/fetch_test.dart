@@ -8,42 +8,35 @@ import 'package:stub/stub.dart';
 
 void main() {
   final delay = const Duration(milliseconds: 50);
-  final createItemStub = unaryStub<Future<Result<Item>>, Item>()
-    ..stub = (_) async {
-      await Future.delayed(delay * 2);
+  final readItemStub = nullaryStub<Future<Result<List<Item>>>>()
+    ..stub = () async {
+      await Future.delayed(delay);
       return const Failure(FailureReport(null, null));
     };
   final itemsNotifier = ValueNotifier<List<Item>>([]);
   final onErrorStub = unaryStub<void, FailureReport>()..stub = (_) {};
 
+  final item = Item.temp(description: 'description');
   final container = ProviderContainer(
     overrides: [
-      createItemPod
-          .overrideWithProvider(Provider((ref) => createItemStub.wrap)),
+      readItemPod.overrideWithProvider(Provider((ref) => readItemStub.wrap)),
       itemsPod
           .overrideWithProvider(Provider.autoDispose((ref) => itemsNotifier)),
       onErrorPod.overrideWithProvider(Provider((ref) => onErrorStub.wrap)),
     ],
   );
-  final addItem = container.read(addItemPod);
-  final item = Item.temp(description: 'description');
+  final fetchItem = container.read(fetchItemsPod);
   group('addItemPod test ', () {
     test(
-        'GIVEN `createItem` fail '
-        'WHEN  item is added '
-        'THEN is added first and then removed', () async {
-      addItem(item);
-      await Future.delayed(delay);
-      expect(
-        itemsNotifier.value.length,
-        1,
-        reason: 'item should be added to list',
-      );
+        'GIVEN `readItem` fail '
+        'WHEN  fetch is ccalled '
+        'THEN no items are added', () async {
+      fetchItem();
       await Future.delayed(delay * 2);
       expect(
         itemsNotifier.value.length,
         0,
-        reason: 'item should be THEN removed from list',
+        reason: 'item should NOT be added to list',
       );
       expect(
         onErrorStub.count,
@@ -52,37 +45,52 @@ void main() {
       );
     });
     test(
-        'GIVEN `createItem` succeed '
-        'WHEN  item is added '
-        'THEN item is added and the updated', () async {
-      const ok = Item(description: 'description', id: 'ID');
-      createItemStub.stub = (_) async {
+        'GIVEN `readItem` succeeds '
+        'WHEN  fetch is called '
+        'THEN  items are added', () async {
+      readItemStub.stub = () async {
         await Future.delayed(delay * 2);
-        return const Success(ok);
+        return Success([item]);
       };
       onErrorStub.reset;
-      addItem(item);
-      await Future.delayed(delay);
+      fetchItem();
+      await Future.delayed(delay * 2);
       expect(
         itemsNotifier.value.length,
         1,
         reason: 'item should be added to list',
       );
-      await Future.delayed(delay * 2);
-      expect(
-        itemsNotifier.value.length,
-        1,
-        reason: 'item is not removed from list',
-      );
-      expect(
-        itemsNotifier.value.first.id,
-        ok.id,
-        reason: 'item id is updated',
-      );
       expect(
         onErrorStub.count,
         0,
-        reason: '`onError` should NOT be calles',
+        reason: '`onError` should NOT be called',
+      );
+    });
+    test(
+        'GIVEN list contains items '
+        'WHEN  fetch fails '
+        'THEN  items are removed', () async {
+      readItemStub.stub = () async {
+        await Future.delayed(delay * 2);
+        return const Failure(FailureReport(null, null));
+      };
+      onErrorStub.reset;
+      expect(
+        itemsNotifier.value.length,
+        1,
+        reason: 'item should be present in list',
+      );
+      fetchItem();
+      await Future.delayed(delay * 2);
+      expect(
+        itemsNotifier.value.length,
+        0,
+        reason: 'list should be empty',
+      );
+      expect(
+        onErrorStub.count,
+        1,
+        reason: '`onError` should be called once',
       );
     });
   });
