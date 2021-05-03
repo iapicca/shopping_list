@@ -12,8 +12,8 @@ final removeItemPod = Provider<void Function(Item)>((ref) {
   final items = ref.read(itemsPod);
   final onError = ref.read(onErrorPod);
   return (item) async {
-    final current = items.value;
-    final redacted = items.value..removeWhere((i) => i.id == item.id);
+    final current = List<Item>.unmodifiable(<Item>[...items.value]);
+    final redacted = [...current]..removeWhere((i) => i.id == item.id);
     items.value = redacted;
     final result = await delete(item);
     if (result is Failure) {
