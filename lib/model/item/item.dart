@@ -1,26 +1,42 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:json_annotation/json_annotation.dart';
-import 'package:flutter/foundation.dart';
+import 'package:equatable/equatable.dart';
 
-part 'item.freezed.dart';
+/// a class representing a `shoppig list item`
+class Item extends Equatable {
+  /// allow a const const constructor
+  const Item({
+    required this.description,
+    this.done = false,
+    required this.id,
+    this.quantity = 1,
+    this.note = '',
+  });
 
-/// command  to run freezed
-/// `flutter pub run build_runner watch --delete-conflicting-outputs`
+  /// returns an `Item` from a `"json"`
+  factory Item.fromJson(Map<String, Object?> json) {
+    return Item(
+      description: json['description'] as String,
+      done: json['done'] as bool,
+      id: json['id'] as String,
+      quantity: json['quantity'] as int,
+      note: json['note'] as String,
+    );
+  }
 
-/// a `data class` that represent `"shopping list"` item
-/// it uses `freezed` for `copyWith`, `fromJson` and `toJson`
-@freezed
-class Item with _$Item {
-  /// the implementation is provided by `freezed`
-  const factory Item({
-    required DateTime date,
-    required String description,
-    @Default(0) int done,
-    required String id,
-    @Default('') String note,
-    @Default(1) int quantity,
-  }) = _Item;
+  /// describe the item
+  final String description;
 
-  /// a
-  // factory Item.fromJson(Map<String, Object?> json) => _$ItemFromJson(json);
+  /// describe the status item
+  final bool done;
+
+  /// provide a unique id for the item
+  final String id;
+
+  /// add a more granula description to the item
+  final String note;
+
+  /// indicates how many `copies` of the item are needed
+  final int quantity;
+
+  @override
+  List<Object> get props => [description, done, id, note, quantity];
 }
