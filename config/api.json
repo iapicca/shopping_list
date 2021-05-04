@@ -1,9 +1,9 @@
 {
-    "autority": "https://parseapi.back4app.com/",
-    "path": "classes/item/",
-    "headers": {
-      "Content-Type": "application/json",
-      "X-Parse-Application-Id": "AT9GaLB3D6FsXVc8aBJI2aA933boJT7oGLT4Lltx",
-      "X-Parse-REST-API-Key": "rfJiT32QRhJ3DzfIHSWJaMZn3SyK9jvUBlrcxwCV"
-    }
+  "authority": "parseapi.back4app.com",
+  "path": "/classes/item",
+  "headers": {
+    "Content-Type": "application/json",
+    "X-Parse-Application-Id": "AT9GaLB3D6FsXVc8aBJI2aA933boJT7oGLT4Lltx",
+    "X-Parse-REST-API-Key": "rfJiT32QRhJ3DzfIHSWJaMZn3SyK9jvUBlrcxwCV"
   }
+}

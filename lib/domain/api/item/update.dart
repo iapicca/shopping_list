@@ -18,8 +18,9 @@ final updateItemPod = Provider<Update<Item>>((ref) {
     late final Response res;
 
     try {
+      assert(item.id != null);
       res = await put(
-        Uri.https(config.authority, config.path + item.id),
+        Uri.https(config.authority, config.path + item.id!),
         headers: config.headers,
         body: item.toJson,
       );
@@ -28,7 +29,7 @@ final updateItemPod = Provider<Update<Item>>((ref) {
     }
 
     if (res.statusCode != 200) {
-      return Failure(FailureReport(res.statusCode, null));
+      return Failure(FailureReport(res.statusCode, res.body));
     }
     return const Success(null);
   };

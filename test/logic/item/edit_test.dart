@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -8,10 +10,11 @@ import 'package:shopping_list/extension/all.dart';
 
 import 'package:stub/stub.dart';
 
-void main() {
-  const description = 'description';
-  final item = Item.temp(description: description);
+import '../../mocks/all.dart';
 
+void main() {
+  final item = Item.fromJson(jsonDecode(fakeITEM));
+  final description = item.description;
   final delay = const Duration(milliseconds: 50);
   final editItemStub = unaryStub<Future<Result>, Item>()
     ..stub = (_) async {

@@ -10,7 +10,7 @@ import 'package:stub/stub.dart';
 import '../../../mocks/all.dart';
 
 void main() {
-  final item = Item.temp(description: 'description');
+  final item = Item.fromJson(jsonDecode(fakeITEM));
   final httpMock = HttpMock()..deleteStub.stub = () => Response('', 200);
   final configStub = nullaryStub<Future<Result<ApiConfig>>>()
     ..stub = () async => Success(ApiConfig.fromJson(jsonDecode(fakeAPICONFIG)));

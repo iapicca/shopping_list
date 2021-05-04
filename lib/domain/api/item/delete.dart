@@ -17,8 +17,9 @@ final deleteItemPod = Provider<Delete<Item>>((ref) {
     late final Response res;
 
     try {
+      assert(item.id != null);
       res = await delete(
-        Uri.https(config.authority, config.path + item.id),
+        Uri.https(config.authority, config.path + item.id!),
         headers: config.headers,
       );
     } on Exception catch (e, s) {
@@ -26,7 +27,7 @@ final deleteItemPod = Provider<Delete<Item>>((ref) {
     }
 
     if (res.statusCode != 200) {
-      return Failure(FailureReport(res.statusCode, null));
+      return Failure(FailureReport(res.statusCode, res.body));
     }
     return const Success(null);
   };

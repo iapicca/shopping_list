@@ -26,11 +26,19 @@ final createItemPod = Provider<Create<Item>>((ref) {
     } on Exception catch (e, s) {
       return Failure(FailureReport(e, s));
     }
-    if (res.statusCode != 200) {
-      return Failure(FailureReport(res.statusCode, null));
+    if (res.statusCode != 201) {
+      return Failure(FailureReport(res.statusCode, res.body));
     }
-
-    final decode = parser((json) => Item.fromJson(json));
-    return decode(res.body);
+    final decodeId = parser<String>((json) => json['objectId'] as String);
+    final id = decodeId(res.body);
+    if (id is Failure) {
+      return Failure((id as Failure).report);
+    }
+    return Success(Item(
+      id: (id as Success<String>).data,
+      description: item.description,
+      note: item.note,
+      quantity: item.quantity,
+    ));
   };
 });

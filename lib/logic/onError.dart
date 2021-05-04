@@ -5,6 +5,7 @@ import 'package:shopping_list/model/all.dart';
 final onErrorPod = Provider<void Function(FailureReport report)>((ref) {
   // ignore: unnecessary_lambdas
   return (report) {
-    print(report);
+    print('############ error: ${report.error}\n'
+        ' ############ stack: ${report.stackTrace}');
   };
 });
