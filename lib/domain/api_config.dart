@@ -2,7 +2,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../model/all.dart';
 import 'all.dart';
 
-const _source = 'assets/api_config.json';
+const _source = 'config/api.json';
 
 /// a `Provider` for `Future<Result<ApiConfig>>`
 final apiConfigPod = Provider<Future<Result<ApiConfig>>>((ref) async {

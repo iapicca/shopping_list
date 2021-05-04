@@ -3,5 +3,8 @@ import 'package:shopping_list/model/all.dart';
 
 /// a `Provider` for a `void Function(FailureReport)`
 final onErrorPod = Provider<void Function(FailureReport report)>((ref) {
-  return (report) {};
+  // ignore: unnecessary_lambdas
+  return (report) {
+    print(report);
+  };
 });
