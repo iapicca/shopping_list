@@ -1,13 +1,10 @@
-import 'package:equatable/equatable.dart';
-import 'package:flutter/widgets.dart';
-
 /// a class representing a `shoppig list item`
-class Item extends Equatable {
+class Item {
   /// allow a const const constructor
   const Item({
     required this.description,
     this.done = false,
-    required this.id,
+    this.id,
     this.quantity = 1,
     this.note = '',
   });
@@ -18,10 +15,8 @@ class Item extends Equatable {
     int quantity = 1,
     String note = '',
   }) {
-    final id = UniqueKey();
     return Item(
       description: description,
-      id: '$id',
       quantity: quantity,
       note: note,
     );
@@ -32,7 +27,7 @@ class Item extends Equatable {
     return Item(
       description: json['description'] as String,
       done: json['done'] as bool,
-      id: json['id'] as String,
+      id: json['objectId'] as String,
       quantity: json['quantity'] as int,
       note: json['note'] as String,
     );
@@ -45,14 +40,11 @@ class Item extends Equatable {
   final bool done;
 
   /// provide a unique id for the item
-  final String id;
+  final String? id;
 
   /// add a more granula description to the item
   final String note;
 
   /// indicates how many `copies` of the item are needed
   final int quantity;
-
-  @override
-  List<Object> get props => [description, done, id, note, quantity];
 }

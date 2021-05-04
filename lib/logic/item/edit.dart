@@ -16,6 +16,9 @@ final editItemPod = Provider<void Function(Item)>((ref) {
       ..removeWhere((i) => i.id == item.id)
       ..add(item);
     items.value = redacted;
+    if (item.id == null) {
+      return;
+    }
     final result = await update(item);
     if (result is Failure) {
       items.value = current;

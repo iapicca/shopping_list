@@ -15,6 +15,9 @@ final removeItemPod = Provider<void Function(Item)>((ref) {
     final current = List<Item>.unmodifiable(<Item>[...items.value]);
     final redacted = [...current]..removeWhere((i) => i.id == item.id);
     items.value = redacted;
+    if (item.id == null) {
+      return;
+    }
     final result = await delete(item);
     if (result is Failure) {
       items.value = current;

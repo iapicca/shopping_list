@@ -94,7 +94,7 @@ class NewItem extends HookWidget {
           if (_formKey.currentState?.validate() ?? false) {
             add(Item.temp(
               description: descriptionController.text,
-              note: descriptionController.text,
+              note: noteController.text,
               quantity: quantity.value,
             ));
             Navigator.pop<Item?>(context, null);

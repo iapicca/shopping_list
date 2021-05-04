@@ -17,16 +17,15 @@ final deleteItemPod = Provider<Delete<Item>>((ref) {
     late final Response res;
 
     try {
-      res = await delete(
-        Uri.https(config.authority, config.path + item.id),
-        headers: config.headers,
-      );
+      assert(item.id != null);
+      final uri = Uri.https(config.authority, '${config.path}/${item.id!}');
+      res = await delete(uri, headers: config.headers);
     } on Exception catch (e, s) {
       return Failure(FailureReport(e, s));
     }
 
     if (res.statusCode != 200) {
-      return Failure(FailureReport(res.statusCode, null));
+      return Failure(FailureReport(res.statusCode, res.body));
     }
     return const Success(null);
   };

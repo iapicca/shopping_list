@@ -10,8 +10,9 @@ import 'package:stub/stub.dart';
 import '../../../mocks/all.dart';
 
 void main() {
+  final goodResponse = Response('{"objectId":"ID"}', 201);
   final item = Item.temp(description: 'description');
-  final httpMock = HttpMock()..postStub.stub = () => Response(fakeITEM, 200);
+  final httpMock = HttpMock()..postStub.stub = () => goodResponse;
   final configStub = nullaryStub<Future<Result<ApiConfig>>>()
     ..stub = () async => Success(ApiConfig.fromJson(jsonDecode(fakeAPICONFIG)));
 
@@ -74,8 +75,7 @@ void main() {
     });
 
     test('WHEN `http` response is 200 THEN returns a `Success`', () async {
-      httpMock.postStub.stub = () => Response(fakeITEM, 200);
-
+      httpMock.postStub.stub = () => goodResponse;
       final container = ProviderContainer(
         overrides: [
           httpPostPod.overrideWithProvider(Provider((ref) => httpMock.post)),
@@ -96,7 +96,7 @@ void main() {
         'GIVEN response is 200'
         'WHEN fail to decode  '
         'THEN returns a `Failure`', () async {
-      httpMock.postStub.stub = () => Response('', 200);
+      httpMock.postStub.stub = () => Response('', 201);
 
       final container = ProviderContainer(
         overrides: [

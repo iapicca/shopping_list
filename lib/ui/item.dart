@@ -1,9 +1,11 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shopping_list/logic/all.dart';
 import 'package:shopping_list/model/all.dart';
 import 'package:shopping_list/extension/all.dart';
+import 'package:shopping_list/ui/edit.dart';
 
 /// a shopping list item
 class ItemWidget extends HookWidget {
@@ -35,6 +37,16 @@ class ItemWidget extends HookWidget {
         leading: Text('Q.ty. ${item.quantity}'),
         title: Center(child: Text(item.description)),
         subtitle: Center(child: Text(item.note)),
+        trailing: OpenContainer<Item>(
+          key: ValueKey('OpenContainer@$key'),
+          transitionType: ContainerTransitionType.fade,
+          closedBuilder: (context, action) => const SizedBox(
+            height: 56,
+            width: 56,
+            child: Icon(Icons.edit),
+          ),
+          openBuilder: (context, action) => EditItem(item),
+        ),
       ),
     );
   }

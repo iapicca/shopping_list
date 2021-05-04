@@ -8,7 +8,7 @@ import 'package:shopping_list/model/all.dart';
 /// a page for editing an `Item`
 class EditItem extends HookWidget {
   /// doesn't have any parameter
-  const EditItem(this.item) : super(key: const ValueKey('EditItem'));
+  EditItem(this.item) : super(key: const ValueKey('EditItem'));
 
   /// the item being edited
   final Item item;
@@ -19,10 +19,10 @@ class EditItem extends HookWidget {
   static const _enabled = OutlineInputBorder(
     borderSide: BorderSide(color: Colors.blue, width: 1),
   );
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    final formKey = GlobalKey<FormState>();
     final descriptionController = useTextEditingController()
       ..text = item.description;
     final noteController = useTextEditingController()..text = item.note;
@@ -36,7 +36,7 @@ class EditItem extends HookWidget {
           key: const ValueKey('AppBar@EditItem'),
           title: const Text('Edit Item')),
       body: Form(
-        key: formKey,
+        key: _formKey,
         child: Padding(
           key: const ValueKey('Padding@EditItem'),
           padding: EdgeInsets.symmetric(
@@ -104,7 +104,7 @@ class EditItem extends HookWidget {
       floatingActionButton: FloatingActionButton(
         key: const ValueKey('FloatingActionButton@EditItem'),
         onPressed: () {
-          if (formKey.currentState!.validate()) {
+          if (_formKey.currentState!.validate()) {
             if ((descriptionController.text != item.description) ^
                 (noteController.text != item.note) ^
                 (quantity.value != item.quantity)) {

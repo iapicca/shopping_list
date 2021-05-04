@@ -40,5 +40,5 @@ class FailureReport {
   final Object? error;
 
   /// the `StackTrace` of the `Error` or `Exception`
-  final StackTrace? stackTrace;
+  final Object? stackTrace;
 }
