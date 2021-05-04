@@ -28,14 +28,14 @@ void main() {
     ),
   );
 
-  group('ItemsList test', () {
+  group('ItemWidget test', () {
     testWidgets('WHEN swiped `left` ' 'THEN should call `remove`',
         (tester) async {
       edit.reset;
       remove.reset;
 
       await tester.pumpWidget(app);
-      final swipe = tester.getRect(find.byType(Material)).width;
+      final swipe = tester.getRect(find.byType(ListView)).width;
       await tester.drag(find.byType(ListTile), Offset(-swipe, 0));
       await tester.pumpAndSettle();
       expect(
@@ -54,7 +54,7 @@ void main() {
       edit.reset;
       remove.reset;
       await tester.pumpWidget(app);
-      final swipe = tester.getRect(find.byType(Material)).width;
+      final swipe = tester.getRect(find.byType(ListView)).width;
       await tester.drag(find.byType(ListTile), Offset(swipe, 0));
       await tester.pumpAndSettle();
       expect(

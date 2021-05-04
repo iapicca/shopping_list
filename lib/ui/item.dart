@@ -32,20 +32,21 @@ class ItemWidget extends HookWidget {
           remove(item);
         }
       },
-      child: OpenContainer<Item>(
-        key: ValueKey('OpenContainer@$key'),
-        transitionType: ContainerTransitionType.fade,
-        closedBuilder: (context, action) {
-          return ListTile(
-            key: Key('ListTile@$key'),
-            leading: Text('Q.ty. ${item.quantity}'),
-            title: Center(child: Text(item.description)),
-            subtitle: Center(child: Text(item.note)),
-          );
-        },
-        closedElevation: 6.0,
-        closedColor: Theme.of(context).colorScheme.secondary,
-        openBuilder: (context, action) => EditItem(item),
+      child: ListTile(
+        key: Key('ListTile@$key'),
+        leading: Text('Q.ty. ${item.quantity}'),
+        title: Center(child: Text(item.description)),
+        subtitle: Center(child: Text(item.note)),
+        trailing: OpenContainer<Item>(
+          key: ValueKey('OpenContainer@$key'),
+          transitionType: ContainerTransitionType.fade,
+          closedBuilder: (context, action) => const SizedBox(
+            height: 56,
+            width: 56,
+            child: Icon(Icons.edit),
+          ),
+          openBuilder: (context, action) => EditItem(item),
+        ),
       ),
     );
   }
