@@ -23,8 +23,16 @@ dev_dependencies:
   
  # 3rd party
   very_good_analysis: ^2.0.0
-  stub: ^0.3.0+2
+  stub: ^0.3.0+2 # this is mine :)
+  flutter_native_splash: ^1.1.8+4
 
+
+flutter_native_splash:
+  color: '#FFFFFF'
+  image: assets/splash.png
+  android: true
+  ios: true
+  web: true
 
 flutter:
   uses-material-design: true
@@ -41,3 +49,5 @@ flutter:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
+
+
