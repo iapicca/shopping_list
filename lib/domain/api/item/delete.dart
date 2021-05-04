@@ -18,10 +18,8 @@ final deleteItemPod = Provider<Delete<Item>>((ref) {
 
     try {
       assert(item.id != null);
-      res = await delete(
-        Uri.https(config.authority, config.path + item.id!),
-        headers: config.headers,
-      );
+      final uri = Uri.https(config.authority, '${config.path}/${item.id!}');
+      res = await delete(uri, headers: config.headers);
     } on Exception catch (e, s) {
       return Failure(FailureReport(e, s));
     }

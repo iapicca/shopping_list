@@ -1,9 +1,11 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shopping_list/logic/all.dart';
 import 'package:shopping_list/model/all.dart';
 import 'package:shopping_list/extension/all.dart';
+import 'package:shopping_list/ui/edit.dart';
 
 /// a shopping list item
 class ItemWidget extends HookWidget {
@@ -30,11 +32,20 @@ class ItemWidget extends HookWidget {
           remove(item);
         }
       },
-      child: ListTile(
-        key: Key('ListTile@$key'),
-        leading: Text('Q.ty. ${item.quantity}'),
-        title: Center(child: Text(item.description)),
-        subtitle: Center(child: Text(item.note)),
+      child: OpenContainer<Item>(
+        key: ValueKey('OpenContainer@$key'),
+        transitionType: ContainerTransitionType.fade,
+        closedBuilder: (context, action) {
+          return ListTile(
+            key: Key('ListTile@$key'),
+            leading: Text('Q.ty. ${item.quantity}'),
+            title: Center(child: Text(item.description)),
+            subtitle: Center(child: Text(item.note)),
+          );
+        },
+        closedElevation: 6.0,
+        closedColor: Theme.of(context).colorScheme.secondary,
+        openBuilder: (context, action) => EditItem(item),
       ),
     );
   }

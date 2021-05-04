@@ -19,11 +19,8 @@ final updateItemPod = Provider<Update<Item>>((ref) {
 
     try {
       assert(item.id != null);
-      res = await put(
-        Uri.https(config.authority, config.path + item.id!),
-        headers: config.headers,
-        body: item.toJson,
-      );
+      final uri = Uri.https(config.authority, '${config.path}/${item.id!}');
+      res = await put(uri, headers: config.headers, body: item.toJson);
     } on Exception catch (e, s) {
       return Failure(FailureReport(e, s));
     }
