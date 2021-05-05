@@ -16,6 +16,7 @@ Future<bool> confirmDelete(BuildContext context) async {
   return maybeAction == SnackBarClosedReason.action;
 }
 
+/// a `provider` for `confirmDelete`
 final confirmDeletePod = Provider<Future<bool> Function(BuildContext)>((ref) {
   return confirmDelete;
 });
