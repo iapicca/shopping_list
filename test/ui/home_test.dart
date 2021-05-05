@@ -1,3 +1,4 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -8,14 +9,15 @@ import 'package:stub/stub.dart';
 
 void main() {
   const descriptionFieldKey = ValueKey('TextFormField:description@NewItem');
-
   final fetch = nullaryStub()..stub = () {};
   final add = unaryStub<void, Item>()..stub = (_) {};
+  final connectivity = ValueNotifier(ConnectivityResult.wifi);
 
   final app = ProviderScope(
     overrides: [
       fetchItemsPod.overrideWithValue(fetch.wrap),
       addItemPod.overrideWithValue(add.wrap),
+      connectivityResultPod.overrideWithValue(connectivity),
     ],
     child: const MaterialApp(home: Material(child: HomePage())),
   );
@@ -24,6 +26,7 @@ void main() {
     testWidgets('WHEN widget is initialized ' 'THEN `fetch` should be called',
         (tester) async {
       await tester.pumpWidget(app);
+
       expect(
         fetch.count,
         1,
@@ -69,6 +72,13 @@ void main() {
         findsOneWidget,
         reason: 'should find `TodoItemsList`',
       );
+    });
+
+    testWidgets('WHEN `ConnectivityResult.none` ' 'THEN  ... ', (tester) async {
+      connectivity.value = ConnectivityResult.none;
+
+      await tester.pumpWidget(app);
+      await tester.pump(const Duration(milliseconds: 100));
     });
   });
 }
