@@ -9,11 +9,16 @@ const _fabDimension = 56.0;
 /// a fab
 class AnimatedFab extends StatelessWidget {
   /// allows a `const` constructor
-  const AnimatedFab() : super(key: const ValueKey('AnimatedFab'));
+  const AnimatedFab({
+    required this.callback,
+  }) : super(key: const ValueKey('AnimatedFab'));
 
+  /// a `callback` that triggers when  `OpenContainer` closes
+  final VoidCallback callback;
   @override
   Widget build(BuildContext context) {
-    return OpenContainer<Item>(
+    return OpenContainer<Item?>(
+      onClosed: (value) => callback(),
       key: ValueKey('OpenContainer@$key'),
       transitionType: ContainerTransitionType.fade,
       closedBuilder: (context, action) {

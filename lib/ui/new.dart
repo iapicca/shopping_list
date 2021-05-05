@@ -53,6 +53,7 @@ class NewItem extends HookWidget {
                 ),
               ),
               TextFormField(
+                key: const ValueKey('TextFormField:note@NewItem'),
                 controller: noteController,
                 decoration: const InputDecoration(
                   focusedBorder: _focused,
@@ -61,23 +62,28 @@ class NewItem extends HookWidget {
                 ),
               ),
               SizedBox(
+                key: const ValueKey('SizedBox@NewItem'),
                 width: MediaQuery.of(context).size.width * .5,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     IconButton(
+                      key: const ValueKey('IconButton:remove@NewItem'),
                       icon: const Icon(Icons.remove),
                       iconSize: 18,
                       onPressed: () =>
-                          quantity.value > 0 ? quantity.value-- : null,
+                          quantity.value > 1 ? quantity.value-- : null,
                     ),
                     ValueListenableBuilder<int>(
+                        key: const ValueKey(
+                            'ValueListenableBuilder:quantity@NewItem'),
                         valueListenable: quantity,
                         builder: (context, value, child) {
                           return Center(child: Text('$value'));
                         }),
                     IconButton(
+                      key: const ValueKey('IconButton:add@NewItem'),
                       icon: const Icon(Icons.add),
                       iconSize: 18,
                       onPressed: () => quantity.value++,
@@ -90,6 +96,7 @@ class NewItem extends HookWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        key: const ValueKey('FloatingActionButton@NewItem'),
         onPressed: () {
           if (_formKey.currentState?.validate() ?? false) {
             add(Item.temp(

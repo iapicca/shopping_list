@@ -9,13 +9,13 @@ import 'package:shopping_list/ui/all.dart';
 /// the a list view of the items
 class TodoItemsList extends HookWidget {
   /// allows a `const` constructor
-  const TodoItemsList() : super(key: const ValueKey('ItemsList'));
+  const TodoItemsList() : super(key: const ValueKey('TodoItemsList'));
 
   @override
   Widget build(BuildContext context) {
     final list = useProvider(itemsPod);
     return ValueListenableBuilder<List<Item>>(
-        key: const ValueKey('ValueListenableBuilder@ItemsList'),
+        key: const ValueKey('ValueListenableBuilder@TodoItemsList'),
         valueListenable: list,
         builder: (context, items, child) {
           final todos = [
@@ -23,7 +23,7 @@ class TodoItemsList extends HookWidget {
               if (!item.done) item
           ];
           return ListView.builder(
-              key: const ValueKey('ValueListenableBuilder@ItemsList'),
+              key: const ValueKey('ValueListenableBuilder@TodoItemsList'),
               itemCount: todos.length,
               itemBuilder: (context, index) {
                 return TodoItemWidget(item: todos[index]);
