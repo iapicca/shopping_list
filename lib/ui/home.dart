@@ -13,29 +13,42 @@ class HomePage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final fetch = useProvider(fetchItemsPod);
+    final tabController = useTabController(initialLength: 2);
     useMemoized(fetch);
-    return DefaultTabController(
-      key: ValueKey('DefaultTabController@$key'),
-      length: 2,
-      child: Scaffold(
-        key: ValueKey('Scaffold@$key'),
-        appBar: AppBar(
-          key: ValueKey('AppBar@$key'),
-          bottom: const TabBar(
-            tabs: [
-              Tab(child: Text('To do')),
-              Tab(child: Text('Completed')),
-            ],
-          ),
-          title: const Text('Shopping List'),
-        ),
-        body: const TabBarView(
-          children: [
-            TodoItemsList(),
-            CompletedItemsList(),
+    return Scaffold(
+      key: const ValueKey('Scaffold@HomePage'),
+      appBar: AppBar(
+        key: const ValueKey('AppBar@HomePage'),
+        bottom: TabBar(
+          key: const ValueKey('TabBar@HomePage'),
+          controller: tabController,
+          tabs: [
+            const Tab(
+              key: ValueKey('Tab:todo@HomePage'),
+              child: Text('To do'),
+            ),
+            const Tab(
+              key: ValueKey('Tab:completed@HomePage'),
+              child: Text('Completed'),
+            ),
           ],
         ),
-        floatingActionButton: const AnimatedFab(),
+        title: const Text('Shopping List'),
+      ),
+      body: TabBarView(
+        key: const ValueKey('TabBarView@HomePage'),
+        controller: tabController,
+        children: [
+          const TodoItemsList(),
+          const CompletedItemsList(),
+        ],
+      ),
+      floatingActionButton: AnimatedFab(
+        callback: () {
+          if (tabController.index != 0) {
+            tabController.animateTo(0);
+          }
+        },
       ),
     );
   }
