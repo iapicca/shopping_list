@@ -22,8 +22,8 @@ class CompletedItemWidget extends HookWidget {
     final remove = useProvider(removeItemPod);
     final confirmDelete = useProvider(confirmDeletePod);
     return Dismissible(
-      background: const ColoredBox(color: Colors.blue),
-      secondaryBackground: const ColoredBox(color: Colors.red),
+      background: DismissibleBackGround.restore,
+      secondaryBackground: DismissibleBackGround.delete,
       key: UniqueKey(),
       onDismissed: (direction) {
         if (direction == DismissDirection.startToEnd) {

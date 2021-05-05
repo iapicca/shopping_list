@@ -22,8 +22,8 @@ class TodoItemWidget extends HookWidget {
     final remove = useProvider(removeItemPod);
     final confirmDelete = useProvider(confirmDeletePod);
     return Dismissible(
-      background: const ColoredBox(color: Colors.green),
-      secondaryBackground: const ColoredBox(color: Colors.red),
+      background: DismissibleBackGround.done,
+      secondaryBackground: DismissibleBackGround.delete,
       key: UniqueKey(),
       onDismissed: (direction) {
         if (direction == DismissDirection.startToEnd) {
@@ -40,7 +40,7 @@ class TodoItemWidget extends HookWidget {
         return await confirmDelete(context);
       },
       child: ListTile(
-        key: Key('ListTile@$key'),
+        key: ValueKey('ListTile@$key'),
         leading: Text('Q.ty. ${item.quantity}'),
         title: Center(child: Text(item.description)),
         subtitle: Center(child: Text(item.note)),
