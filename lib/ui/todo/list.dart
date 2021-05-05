@@ -8,9 +8,9 @@ import 'package:shopping_list/model/all.dart';
 import 'all.dart';
 
 /// the a list view of the items
-class ItemsList extends HookWidget {
+class TodoItemsList extends HookWidget {
   /// allows a `const` constructor
-  const ItemsList() : super(key: const ValueKey('ItemsList'));
+  const TodoItemsList() : super(key: const ValueKey('ItemsList'));
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class ItemsList extends HookWidget {
               key: const ValueKey('ValueListenableBuilder@ItemsList'),
               itemCount: todos.length,
               itemBuilder: (context, index) {
-                return ItemWidget(item: todos[index]);
+                return TodoItemWidget(item: todos[index]);
               });
         });
   }

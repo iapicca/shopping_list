@@ -1,7 +1,6 @@
-export 'completed.dart';
+export 'completed/all.dart';
 export 'edit.dart';
 export 'fab.dart';
 export 'home.dart';
-export 'item.dart';
-export 'list.dart';
 export 'new.dart';
+export 'todo/all.dart';

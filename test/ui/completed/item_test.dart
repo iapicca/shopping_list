@@ -19,7 +19,7 @@ void main() {
       home: Material(
         child: ListView(
           children: [
-            ItemWidget(
+            TodoItemWidget(
               item: Item.temp(description: 'description'),
             )
           ],
@@ -28,7 +28,7 @@ void main() {
     ),
   );
 
-  group('ItemWidget test', () {
+  group('TodoItemWidget test', () {
     testWidgets('WHEN swiped `left` ' 'THEN should call `remove`',
         (tester) async {
       edit.reset;
