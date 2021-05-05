@@ -1,3 +1,4 @@
+export 'completed.dart';
 export 'edit.dart';
 export 'fab.dart';
 export 'home.dart';

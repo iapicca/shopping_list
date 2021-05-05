@@ -14,10 +14,29 @@ class HomePage extends HookWidget {
   Widget build(BuildContext context) {
     final fetch = useProvider(fetchItemsPod);
     useMemoized(fetch);
-    return Scaffold(
-      key: ValueKey('Scaffold@$key'),
-      body: const ItemsList(),
-      floatingActionButton: const AnimatedFab(),
+    return DefaultTabController(
+      key: ValueKey('DefaultTabController@$key'),
+      length: 2,
+      child: Scaffold(
+        key: ValueKey('Scaffold@$key'),
+        appBar: AppBar(
+          key: ValueKey('AppBar@$key'),
+          bottom: const TabBar(
+            tabs: [
+              Tab(child: Text('To do')),
+              Tab(child: Text('Completed')),
+            ],
+          ),
+          title: const Text('Shopping List'),
+        ),
+        body: const TabBarView(
+          children: [
+            ItemsList(),
+            CompletedList(),
+          ],
+        ),
+        floatingActionButton: const AnimatedFab(),
+      ),
     );
   }
 }
