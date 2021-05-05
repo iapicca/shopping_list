@@ -4,8 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shopping_list/logic/all.dart';
 import 'package:shopping_list/model/all.dart';
-
-import 'all.dart';
+import 'package:shopping_list/ui/all.dart';
 
 /// the a list view of the items
 class CompletedItemsList extends HookWidget {

@@ -20,8 +20,7 @@ void main() {
   final container = ProviderContainer(
     overrides: [
       readItemPod.overrideWithProvider(Provider((ref) => readItemStub.wrap)),
-      itemsPod
-          .overrideWithProvider(Provider.autoDispose((ref) => itemsNotifier)),
+      itemsPod.overrideWithProvider(Provider((ref) => itemsNotifier)),
       onErrorPod.overrideWithProvider(Provider((ref) => onErrorStub.wrap)),
     ],
   );

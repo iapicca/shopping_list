@@ -56,7 +56,7 @@ class EditItem extends HookWidget {
                 decoration: const InputDecoration(
                   focusedBorder: _focused,
                   enabledBorder: _enabled,
-                  hintText: 'User name',
+                  hintText: 'description',
                 ),
               ),
               TextFormField(
@@ -65,7 +65,7 @@ class EditItem extends HookWidget {
                 decoration: const InputDecoration(
                   focusedBorder: _focused,
                   enabledBorder: _enabled,
-                  hintText: 'User name',
+                  hintText: 'note',
                 ),
               ),
               SizedBox(
