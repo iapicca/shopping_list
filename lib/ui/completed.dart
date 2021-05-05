@@ -8,26 +8,26 @@ import 'package:shopping_list/model/all.dart';
 import 'all.dart';
 
 /// the a list view of the items
-class ItemsList extends HookWidget {
+class CompletedList extends HookWidget {
   /// allows a `const` constructor
-  const ItemsList() : super(key: const ValueKey('ItemsList'));
+  const CompletedList() : super(key: const ValueKey('CompletedList'));
 
   @override
   Widget build(BuildContext context) {
     final list = useProvider(itemsPod);
     return ValueListenableBuilder<List<Item>>(
-        key: const ValueKey('ValueListenableBuilder@ItemsList'),
+        key: const ValueKey('ValueListenableBuilder@CompletedList'),
         valueListenable: list,
         builder: (context, items, child) {
-          final todos = [
+          final done = [
             for (final item in items)
-              if (!item.done) item
+              if (item.done) item
           ];
           return ListView.builder(
-              key: const ValueKey('ValueListenableBuilder@ItemsList'),
-              itemCount: todos.length,
+              key: const ValueKey('ListView@CompletedList'),
+              itemCount: done.length,
               itemBuilder: (context, index) {
-                return ItemWidget(item: todos[index]);
+                return ItemWidget(item: done[index]);
               });
         });
   }
