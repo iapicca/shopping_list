@@ -31,8 +31,8 @@ class HomePage extends HookWidget {
         ),
         body: const TabBarView(
           children: [
-            ItemsList(),
-            CompletedList(),
+            TodoItemsList(),
+            CompletedItemsList(),
           ],
         ),
         floatingActionButton: const AnimatedFab(),

@@ -8,9 +8,9 @@ import 'package:shopping_list/extension/all.dart';
 import 'package:shopping_list/ui/edit.dart';
 
 /// a shopping list item
-class ItemWidget extends HookWidget {
+class TodoItemWidget extends HookWidget {
   /// wraps an `Item` model
-  ItemWidget({required this.item})
+  TodoItemWidget({required this.item})
       : super(key: ValueKey('ItemWidget:${item.id}'));
 
   /// the `Item` model
@@ -40,6 +40,7 @@ class ItemWidget extends HookWidget {
         trailing: OpenContainer<Item>(
           key: ValueKey('OpenContainer@$key'),
           transitionType: ContainerTransitionType.fade,
+          closedElevation: 0,
           closedBuilder: (context, action) => const SizedBox(
             height: 56,
             width: 56,
