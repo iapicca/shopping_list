@@ -27,8 +27,7 @@ void main() {
   final container = ProviderContainer(
     overrides: [
       updateItemPod.overrideWithProvider(Provider((ref) => editItemStub.wrap)),
-      itemsPod
-          .overrideWithProvider(Provider.autoDispose((ref) => itemsNotifier)),
+      itemsPod.overrideWithProvider(Provider((ref) => itemsNotifier)),
       onErrorPod.overrideWithProvider(Provider((ref) => onErrorStub.wrap)),
     ],
   );

@@ -20,8 +20,7 @@ void main() {
     overrides: [
       createItemPod
           .overrideWithProvider(Provider((ref) => createItemStub.wrap)),
-      itemsPod
-          .overrideWithProvider(Provider.autoDispose((ref) => itemsNotifier)),
+      itemsPod.overrideWithProvider(Provider((ref) => itemsNotifier)),
       onErrorPod.overrideWithProvider(Provider((ref) => onErrorStub.wrap)),
     ],
   );

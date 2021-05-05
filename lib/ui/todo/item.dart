@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shopping_list/logic/all.dart';
 import 'package:shopping_list/model/all.dart';
 import 'package:shopping_list/extension/all.dart';
-import 'package:shopping_list/ui/edit.dart';
+import 'package:shopping_list/ui/all.dart';
 
 /// a shopping list item
 class TodoItemWidget extends HookWidget {
@@ -20,6 +20,7 @@ class TodoItemWidget extends HookWidget {
   Widget build(BuildContext context) {
     final edit = useProvider(editItemPod);
     final remove = useProvider(removeItemPod);
+    final confirmDelete = useProvider(confirmDeletePod);
     return Dismissible(
       background: const ColoredBox(color: Colors.green),
       secondaryBackground: const ColoredBox(color: Colors.red),
@@ -31,6 +32,12 @@ class TodoItemWidget extends HookWidget {
         if (direction == DismissDirection.endToStart) {
           remove(item);
         }
+      },
+      confirmDismiss: (direction) async {
+        if (direction == DismissDirection.startToEnd) {
+          return true;
+        }
+        return await confirmDelete(context);
       },
       child: ListTile(
         key: Key('ListTile@$key'),

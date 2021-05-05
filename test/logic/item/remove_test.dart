@@ -26,8 +26,7 @@ void main() {
     overrides: [
       deleteItemPod
           .overrideWithProvider(Provider((ref) => deleteItemStub.wrap)),
-      itemsPod
-          .overrideWithProvider(Provider.autoDispose((ref) => itemsNotifier)),
+      itemsPod.overrideWithProvider(Provider((ref) => itemsNotifier)),
       onErrorPod.overrideWithProvider(Provider((ref) => onErrorStub.wrap)),
     ],
   );

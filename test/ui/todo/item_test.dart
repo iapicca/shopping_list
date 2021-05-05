@@ -9,11 +9,14 @@ import 'package:stub/stub.dart';
 void main() {
   final edit = unaryStub<void, Item>()..stub = (_) {};
   final remove = unaryStub<void, Item>()..stub = (_) {};
+  final confirm = unaryStub<Future<bool>, BuildContext>()
+    ..stub = (_) async => true;
 
   final app = ProviderScope(
     overrides: [
       editItemPod.overrideWithValue(edit.wrap),
       removeItemPod.overrideWithValue(remove.wrap),
+      confirmDeletePod.overrideWithValue(confirm.wrap),
     ],
     child: MaterialApp(
       home: Material(
