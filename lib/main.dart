@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-
-import 'settings/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shopping_list/ui/home.dart';
 
 void main() {
-  runApp(const App());
+  runApp(const ProviderScope(child: MaterialApp(home: HomePage())));
 }
