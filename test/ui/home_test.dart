@@ -73,12 +73,5 @@ void main() {
         reason: 'should find `TodoItemsList`',
       );
     });
-
-    testWidgets('WHEN `ConnectivityResult.none` ' 'THEN  ... ', (tester) async {
-      connectivity.value = ConnectivityResult.none;
-
-      await tester.pumpWidget(app);
-      await tester.pump(const Duration(milliseconds: 100));
-    });
   });
 }
