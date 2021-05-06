@@ -28,5 +28,48 @@ void main() {
         reason: 'should return a `void Function(BuildContext)`',
       );
     });
+    testWidgets(
+        'GIVEN offlineSnack'
+        'WHEN `fab` pressed '
+        'THEN `edit` should not be called', (tester) async {
+      final app = MaterialApp(
+        home: Scaffold(
+            floatingActionButton: Builder(
+          builder: (context) => FloatingActionButton(
+            onPressed: () => offlineSnack(context),
+          ),
+        )),
+      );
+      await tester.pumpWidget(app);
+      await tester.tap(find.byType(FloatingActionButton));
+      await tester.pumpAndSettle();
+      expect(
+        find.byType(SnackBar),
+        findsOneWidget,
+        reason: 'should find a `SnackBar`',
+      );
+    });
+
+    testWidgets(
+        'GIVEN onlineSnack'
+        'WHEN `fab` pressed '
+        'THEN `edit` should not be called', (tester) async {
+      final app = MaterialApp(
+        home: Scaffold(
+            floatingActionButton: Builder(
+          builder: (context) => FloatingActionButton(
+            onPressed: () => onlineSnack(context, ConnectivityResult.wifi),
+          ),
+        )),
+      );
+      await tester.pumpWidget(app);
+      await tester.tap(find.byType(FloatingActionButton));
+      await tester.pumpAndSettle();
+      expect(
+        find.byType(SnackBar),
+        findsOneWidget,
+        reason: 'should find a `SnackBar`',
+      );
+    });
   });
 }
