@@ -83,8 +83,17 @@ class HomePage extends HookWidget {
             key: const ValueKey('TabBarView@HomePage'),
             controller: tabController,
             children: [
-              const TodoItemsList(),
-              const CompletedItemsList(),
+              RefreshIndicator(
+                key: const ValueKey('RefreshIndicator:TodoItemsList@HomePage'),
+                onRefresh: () async => fetch,
+                child: const TodoItemsList(),
+              ),
+              RefreshIndicator(
+                key: const ValueKey(
+                    'RefreshIndicator:CompletedItemsList@HomePage'),
+                onRefresh: () async => fetch,
+                child: const CompletedItemsList(),
+              ),
             ],
           ),
           floatingActionButton: AnimatedFab(
