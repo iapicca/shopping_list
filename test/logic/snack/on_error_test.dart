@@ -46,5 +46,26 @@ void main() {
         reason: 'error snack should be called',
       );
     });
+    testWidgets(
+        'GIVEN `errorSnackbar`'
+        'WHEN `fab` pressed '
+        'THEN `edit` should not be called', (tester) async {
+      final app = MaterialApp(
+        home: Scaffold(
+            floatingActionButton: Builder(
+          builder: (context) => FloatingActionButton(
+            onPressed: () => errorSnackbar(context),
+          ),
+        )),
+      );
+      await tester.pumpWidget(app);
+      await tester.tap(find.byType(FloatingActionButton));
+      await tester.pumpAndSettle();
+      expect(
+        find.byType(SnackBar),
+        findsOneWidget,
+        reason: 'should find a `SnackBar`',
+      );
+    });
   });
 }
