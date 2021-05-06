@@ -10,9 +10,9 @@ dependencies:
     sdk: flutter
   http: ^0.13.2
   animations: ^2.0.0
+  connectivity: ^3.0.3
 
   # 3rd party
-  beamer: ^0.12.4
   hooks_riverpod: ^0.14.0
   flutter_hooks: ^0.16.0
 
@@ -23,8 +23,8 @@ dev_dependencies:
   
  # 3rd party
   very_good_analysis: ^2.0.0
-  stub: ^0.3.0+2 # this is mine :)
-  flutter_native_splash: ^1.1.8+4
+  stub: ^0.3.0 # this is mine :)
+  flutter_native_splash: ^1.1.8
   flutter_launcher_icons: '^0.9.0'
 
 flutter_icons:

@@ -6,6 +6,7 @@ Future<bool> confirmDelete(BuildContext context) async {
   ScaffoldMessenger.of(context).hideCurrentSnackBar();
   final maybeAction = await ScaffoldMessenger.of(context)
       .showSnackBar(SnackBar(
+          key: const ValueKey('SnackBar@confirmDelete'),
           duration: const Duration(seconds: 2),
           content: const Text('do you want to delete?'),
           action: SnackBarAction(
