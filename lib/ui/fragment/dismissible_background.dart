@@ -34,7 +34,7 @@ class DismissibleBackGround {
 
   /// `restore`
   static const restore = ColoredBox(
-    color: Colors.deepOrange,
+    color: Colors.lightBlue,
     child: Align(
       alignment: AlignmentDirectional.centerStart,
       child: Padding(

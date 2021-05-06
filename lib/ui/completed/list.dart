@@ -22,12 +22,16 @@ class CompletedItemsList extends HookWidget {
             for (final item in items)
               if (item.done) item
           ];
-          return ListView.builder(
-              key: const ValueKey('ListView@CompletedList'),
-              itemCount: done.length,
-              itemBuilder: (context, index) {
-                return CompletedItemWidget(item: done[index]);
-              });
+          return done.isEmpty
+              ? noItemYet
+              : ListView.builder(
+                  key: const ValueKey('ListView@CompletedList'),
+                  itemCount: done.length,
+                  itemBuilder: (context, index) {
+                    return done.isEmpty
+                        ? noItemYet
+                        : CompletedItemWidget(item: done[index]);
+                  });
         });
   }
 }

@@ -22,12 +22,14 @@ class TodoItemsList extends HookWidget {
             for (final item in items)
               if (!item.done) item
           ];
-          return ListView.builder(
-              key: const ValueKey('ValueListenableBuilder@TodoItemsList'),
-              itemCount: todos.length,
-              itemBuilder: (context, index) {
-                return TodoItemWidget(item: todos[index]);
-              });
+          return todos.isEmpty
+              ? noItemYet
+              : ListView.builder(
+                  key: const ValueKey('ValueListenableBuilder@TodoItemsList'),
+                  itemCount: todos.length,
+                  itemBuilder: (context, index) {
+                    return TodoItemWidget(item: todos[index]);
+                  });
         });
   }
 }
