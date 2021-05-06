@@ -21,6 +21,11 @@ void main() {
         findsNothing,
         reason: 'should find nothing',
       );
+      expect(
+        find.text('no item yet'),
+        findsOneWidget,
+        reason: 'should find text',
+      );
     });
     testWidgets('WHEN items.value.isNotEmpty ' 'THEN shows `TodoItemWidget`',
         (tester) async {
