@@ -8,7 +8,8 @@ you can have a *preview* of app with its web version at this [link](https://fest
 
 this is a [flutter](https://flutter.dev/) application that allows a *sigle* user to *access*, *save*, *delete* and *edit* "shopping list items"\
 across devices without real time synchronization,\
-the application can be run and built for *android*, *ios*, *web* and *macos* and with partial features for *windows*, *linux* (see `known issues`),\
+the application can be run and built for *android*, *ios*, *web* and *macos* \
+and with partial features for *windows*, *linux* (see `known issues`),\
 but please note that has been tested only for *android*, *web* and *linux*
 
 ## ARCHITECTURE
@@ -20,14 +21,14 @@ it also implements a splashscreen for *mobile* and *web* and launcher icon for *
 
 ### ux
 
-- ease of use
+#### ease of use
 the expected use case is the user either *shopping* or quickly adding a memo,\
 given the first scenario the app is designed to be easily operable with a sigle hand\
 therefore the action of "checking" an item is achieved with a sigle swipe (ltr)\
 while deleting an item requires a tap for confirm, \
 while dimissing automatically being stuck in an unwanted state caused by accidental swipe (rtl)\
 
-- speed
+#### speed
 the app uses an "optimistic approach" for syncing data, the user will never have to wait for loading\
 see technical details below\
 
@@ -68,7 +69,7 @@ cd counter_app
 flutter run
 ```
 
-- clone this repository && cd on the repository location
+- clone this repository & cd on the repository location
 
 
 ### RUN THIS APP
