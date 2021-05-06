@@ -13,9 +13,12 @@ class HomePage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final fetch = useProvider(fetchItemsPod);
     final tabController = useTabController(initialLength: 2);
     final connectivity = useProvider(connectivityResultPod);
+    final fetch = useProvider(fetchItemsPod);
+    final onlineSnack = useProvider(onlineSnackPod);
+    final offlineSnack = useProvider(offlineSnackPod);
+
     useMemoized(() {
       fetch();
       connectivity.addListener(() {
@@ -27,7 +30,6 @@ class HomePage extends HookWidget {
         }
       });
     });
-
     return SafeArea(
       key: const ValueKey('SafeArea@HomePage'),
       child: ValueListenableBuilder<ConnectivityResult>(
@@ -37,18 +39,23 @@ class HomePage extends HookWidget {
             key: const ValueKey('Stack@HomePage'),
             children: [
               child!,
-              if (value == ConnectivityResult.none)
-                const AbsorbPointer(
-                  key: ValueKey('AbsorbPointer@HomePage'),
-                  absorbing: true,
-                  child: SizedBox.expand(
-                    key: ValueKey('SizedBox.expand@HomePage'),
-                    child: ColoredBox(
-                      key: ValueKey('ColoredBox@HomePage'),
-                      color: Color.fromRGBO(0, 0, 0, .7),
+              IndexedStack(
+                key: const ValueKey('IndexedStack@HomePage'),
+                index: value == ConnectivityResult.none ? 0 : null,
+                children: [
+                  const AbsorbPointer(
+                    key: ValueKey('AbsorbPointer@HomePage'),
+                    absorbing: true,
+                    child: SizedBox.expand(
+                      key: ValueKey('SizedBox.expand@HomePage'),
+                      child: ColoredBox(
+                        key: ValueKey('ColoredBox@HomePage'),
+                        color: Color.fromRGBO(0, 0, 0, .7),
+                      ),
                     ),
                   ),
-                ),
+                ],
+              ),
             ],
           );
         },

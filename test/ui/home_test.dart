@@ -7,17 +7,23 @@ import 'package:shopping_list/model/all.dart';
 import 'package:shopping_list/ui/all.dart';
 import 'package:stub/stub.dart';
 
+import '../mocks/all.dart';
+
 void main() {
   const descriptionFieldKey = ValueKey('TextFormField:description@NewItem');
   final fetch = nullaryStub()..stub = () {};
   final add = unaryStub<void, Item>()..stub = (_) {};
   final connectivity = ValueNotifier(ConnectivityResult.wifi);
+  final onlineSnack = OnlineSnackMock()..stub.stub = () {};
+  final offlineSnack = unaryStub<void, BuildContext>()..stub = (_) {};
 
   final app = ProviderScope(
     overrides: [
       fetchItemsPod.overrideWithValue(fetch.wrap),
       addItemPod.overrideWithValue(add.wrap),
       connectivityResultPod.overrideWithValue(connectivity),
+      onlineSnackPod.overrideWithValue(onlineSnack),
+      offlineSnackPod.overrideWithValue(offlineSnack.wrap),
     ],
     child: const MaterialApp(home: Material(child: HomePage())),
   );
@@ -71,6 +77,42 @@ void main() {
         find.byKey(const ValueKey('TodoItemsList')),
         findsOneWidget,
         reason: 'should find `TodoItemsList`',
+      );
+    });
+
+    /// see issue `shopping_list/issues/27`
+    /// `The following assertion was thrown `
+    /// `running a test (but after the test had completed):`
+    /// `Looking up a deactivated widget's ancestor is unsafe.`
+    // ///
+    testWidgets(
+        'GIVEN defailt `ConnectivityResult` is wifi'
+        'WHEN `ConnectivityResult.none` '
+        'THEN  `offlinesnack` is called ', (tester) async {
+      offlineSnack.reset;
+
+      await tester.pumpWidget(app);
+      connectivity.value = ConnectivityResult.none;
+
+      expect(
+        offlineSnack.count > 0,
+        isTrue,
+        reason: 'offlinesnack should be called',
+      );
+    });
+    testWidgets(
+        'GIVEN defailt `ConnectivityResult` is wifi'
+        'WHEN `ConnectivityResult.mobile` '
+        'THEN  `offlinesnack` is called ', (tester) async {
+      onlineSnack.stub.reset;
+
+      await tester.pumpWidget(app);
+      connectivity.value = ConnectivityResult.mobile;
+
+      expect(
+        onlineSnack.stub.count > 0,
+        isTrue,
+        reason: 'onlineSnack should be called',
       );
     });
   });

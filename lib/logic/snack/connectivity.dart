@@ -1,5 +1,11 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+/// a `provider` for `offlineSnack`
+final offlineSnackPod = Provider<void Function(BuildContext)>((ref) {
+  return offlineSnack;
+});
 
 /// a function that shows a `snackbar` when devide is `offline`
 void offlineSnack(BuildContext context) async {
@@ -13,6 +19,12 @@ void offlineSnack(BuildContext context) async {
         onPressed: () {},
       )));
 }
+
+/// a `provider` for `offlineSnack`
+final onlineSnackPod =
+    Provider<void Function(BuildContext, ConnectivityResult)>((ref) {
+  return onlineSnack;
+});
 
 /// a function that shows a `snackbar` when devide is `online`
 void onlineSnack(BuildContext context, ConnectivityResult result) async {
