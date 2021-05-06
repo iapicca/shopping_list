@@ -88,5 +88,26 @@ void main() {
         reason: 'should find a widget',
       );
     });
+    testWidgets(
+        'WHEN a "done=false" items is added '
+        'THEN `CompletedItemWidget` count should not change', (tester) async {
+      items.value = [const Item(description: 'description', done: true)];
+      await tester.pumpWidget(app);
+      expect(
+        find.byType(CompletedItemWidget),
+        findsOneWidget,
+        reason: 'should find a widget',
+      );
+      items.value = [
+        const Item(description: 'description', done: false),
+        const Item(description: 'description', done: true),
+      ];
+      await tester.pump();
+      expect(
+        find.byType(CompletedItemWidget),
+        findsOneWidget,
+        reason: 'should find a widget',
+      );
+    });
   });
 }

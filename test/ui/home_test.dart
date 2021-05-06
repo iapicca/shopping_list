@@ -11,7 +11,7 @@ import '../mocks/all.dart';
 
 void main() {
   const descriptionFieldKey = ValueKey('TextFormField:description@NewItem');
-  final fetch = nullaryStub()..stub = () {};
+  final fetch = nullaryStub<void>()..stub = () {};
   final add = unaryStub<void, Item>()..stub = (_) {};
   final connectivity = ValueNotifier(ConnectivityResult.wifi);
   final onlineSnack = OnlineSnackMock()..stub.stub = () {};
@@ -115,5 +115,42 @@ void main() {
         reason: 'onlineSnack should be called',
       );
     });
+
+    testWidgets(
+        'GIVEN tab index 0'
+        'WHEN `pull to refresh` '
+        'THEN  `fetch` is called ', (tester) async {
+      await tester.pumpWidget(app);
+      final subject = tester.getRect(find.byType(TodoItemsList));
+      final gesture = await tester.startGesture(subject.topCenter);
+      await gesture.moveBy(subject.center);
+      await tester.pumpAndSettle();
+      expect(
+        fetch.count > 0,
+        isTrue,
+        reason: 'onlineSnack should be called',
+      );
+    });
+
+    testWidgets(
+        'GIVEN tab index 1'
+        'WHEN `pull to refresh` '
+        'THEN  `fetch` is called ', (tester) async {
+      await tester.pumpWidget(app);
+      await tester.tap(find.byKey(const ValueKey('Tab:completed@HomePage')));
+      await tester.pumpAndSettle();
+
+      final subject = tester.getRect(find.byType(CompletedItemsList));
+      final gesture = await tester.startGesture(subject.topCenter);
+      await gesture.moveBy(subject.center);
+      await tester.pumpAndSettle();
+      expect(
+        fetch.count > 0,
+        isTrue,
+        reason: 'onlineSnack should be called',
+      );
+    });
   });
 }
+
+//
