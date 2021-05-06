@@ -17,20 +17,22 @@ but please note that has been tested only for *android*, *web* and *linux*
 ### ui
 
 the app relies on [material design](https://material.io/design) with a few subdle animations,\
-it also implements a splashscreen for *mobile* and *web* and launcher icon for *mobile*\
+it also implements a splashscreen for *mobile* and *web* and launcher icon for *mobile*
 
 ### ux
 
-#### ease of use
+- ease of use
+
 the expected use case is the user either *shopping* or quickly adding a memo,\
 given the first scenario the app is designed to be easily operable with a sigle hand\
 therefore the action of "checking" an item is achieved with a sigle swipe (ltr)\
 while deleting an item requires a tap for confirm, \
-while dimissing automatically being stuck in an unwanted state caused by accidental swipe (rtl)\
+while dimissing automatically being stuck in an unwanted state caused by accidental swipe (rtl)
 
-#### speed
+- speed
+
 the app uses an "optimistic approach" for syncing data, the user will never have to wait for loading\
-see technical details below\
+see technical details below
 
 ### technical
 
@@ -41,8 +43,9 @@ here are some highlights:
 - complete separation between *domain*, *logic* and *ui*
 - ui completely synchronous
 - "optimistic approach" for synchronization between logic and domain\
-    all operation from ui take place instantly giving the user a feeling of "speed" regardless the actual speed connection\
-    in case of failure from the backend the changes are reverted back to the previous state\
+    all operation from ui take place instantly giving the user a feeling of "speed"\
+    regardless the actual speed connection\
+    in case of failure from the backend the changes are reverted back to the previous state
 - minimal use of 3rd party packages
     besides development packages the only 3rd party packages are state management related: [hooks_riverpod](https://pub.dev/packages/hooks_riverpod) and [flutter_hooks](https://pub.dev/packages/flutter_hooks)
 
@@ -51,8 +54,8 @@ here are some highlights:
 ### SET UP
 
 - [install flutter](https://flutter.dev/docs/get-started/install) 
-    optional steps for [desktop support](https://flutter.dev/desktop)
-    optional steps for web support: make sure [chrome](https://www.google.com/chrome) is installed 
+    - optional steps for [desktop support](https://flutter.dev/desktop)
+    - optional steps for web support: make sure [chrome](https://www.google.com/chrome) is installed 
 
 - switch to `dev channel` running the following commands
 ```console
