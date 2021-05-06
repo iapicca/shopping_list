@@ -18,15 +18,17 @@ class HomePage extends HookWidget {
     final fetch = useProvider(fetchItemsPod);
     final onlineSnack = useProvider(onlineSnackPod);
     final offlineSnack = useProvider(offlineSnackPod);
-
+    final onError = useProvider(memoizedOnErrorSnackCallbackPod);
+    final ctx = useContext();
     useMemoized(() {
+      onError(ctx);
       fetch();
       connectivity.addListener(() {
         if (connectivity.value != ConnectivityResult.none) {
           onlineSnack(context, connectivity.value);
           fetch();
         } else {
-          offlineSnack(context);
+          offlineSnack(ctx);
         }
       });
     });
